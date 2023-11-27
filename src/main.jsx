@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { RouterProvider,createBrowserRouter } from 'react-router-dom'
-import ChatRoom from './components/ChatRoom.jsx'
-import Login from './components/Login.jsx'
-import Signup from './components/Signup.jsx'
+import { ChatRoom,Login,Signup,ProtectedRoute } from './index.js'
+
 import { Provider } from 'react-redux'
 import store from './store/store.js'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
+
 
 
 

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-import Signup from './components/Signup'
-import Login from './components/Login'
-import ChatRoom from './components/ChatRoom'
+import {Signup,Login,ChatRoom} from './index'
 import { useForm } from 'react-hook-form'
 import { Outlet } from 'react-router-dom'
 import authService from './appwrite/authentication'

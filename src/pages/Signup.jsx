@@ -1,9 +1,7 @@
 import React,{ useState } from 'react'
-import AppContainer from './AppContainer'
+import { AppContainer,InputField,Button } from '../index'
 import { Link, useNavigate } from 'react-router-dom'
 import authService from '../appwrite/authentication'
-import InputField from './InputField'
-import Button from './Button'
 import {useForm} from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { loginState } from '../store/authSlice'
@@ -26,7 +24,7 @@ const Signup = () => {
        //console.log('userData:',userData)
        if(userData){
          const userData = await authService.getCurrentUser()
-        console.log(userData);
+        //console.log(userData);
         if(userData) dispatch(loginState(userData));
         navigate("/")
        }

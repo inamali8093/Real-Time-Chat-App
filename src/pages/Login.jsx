@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import AppContainer from './AppContainer'
+import React, { useEffect, useState } from 'react'
+import {AppContainer,Button,InputField} from '../index'
 import { Link,useNavigate } from 'react-router-dom'
-import InputField from './InputField'
-import Button from './Button'
+
 import { useForm } from 'react-hook-form'
 import authService from '../appwrite/authentication'
 import { useDispatch } from 'react-redux'
-import { loginState } from '../store/authSlice'
+import authSlice, { loginState } from '../store/authSlice'
 
 const Login = () => {
 
@@ -16,11 +15,11 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const login = async (data) =>{
-    console.log('data:',data)
+    //console.log('data:',data)
     setError("")
     try {
       const session = await authService.login(data)
-      console.log("session:",session);
+     // console.log("session:",session);
       if(session){
         const userData = await authService.getCurrentUser()
         console.log("userData:",userData);
@@ -31,6 +30,12 @@ const Login = () => {
       setError(error.message)
     }
   }
+
+  useEffect(()=>{
+    if(authSlice.state){
+      navigate('/')
+    }
+  },[])
 
 
 
