@@ -21,26 +21,36 @@ const ChatRoom = () => {
 
   const getMessage = async ()=>{
      const response = await service.getAllMessages()
-     console.log("ResponseMessage:",response.documents);
+    //console.log("ResponseMessage:",response.documents);
      setMessages(response.documents)
      //console.log(typeof(response.documents));
      
   }
 
-  const getUserOnLoad = async ()=>{
-    const response = await authService.getCurrentUser()
-    console.log(response);
-    return response
-  }
+  // const getUserOnLoad =  ()=>{
+  //   const response = authService.getCurrentUser()
+  //   .then((data)=>{
+  //     return data
+  //   })
+  // }
+  
+
+
+  const getUserOnLoad = useCallback(()=>{
+    authService.getCurrentUser()
+    .then((data)=>{
+      console.log("DATA:",data);
+      setUser(data)
+      console.log("USER:",user);
+    })
+  },[])
+
+  
   
 
   useEffect(()=>{
        getMessage()
        getUserOnLoad()
-       setUser(getUserOnLoad)
-       console.log("USER",user);
-
-
        const unsubscribe = service.client.subscribe(`databases.${conf.appwriteDatabaseId}.collections.${conf.appwriteCollectionId}.documents`, response => {
         // Callback will be executed on changes for documents A and all files.
         //console.log(response);
@@ -67,11 +77,12 @@ const ChatRoom = () => {
 
 
   const createMessage = async (data)=>{
-    //console.log(messageBody);
+  
+    console.log(messageBody);
 
     const payload = {
-      user_id: user.$id,
-      username: user.name,
+      // user_id: user.$id,
+      // username: user.name,
       body: messageBody
     }
        
@@ -90,7 +101,7 @@ const ChatRoom = () => {
 
   return (
     <>
-     <Header />
+     <Header/>
       <div className='max-w-full w-full flex flex-col justify-center items-center'>
         <div className='min-w-md outline w-[80%] md:w-[60%]  p-6'>
           {/* from here components starts */}
@@ -106,6 +117,7 @@ const ChatRoom = () => {
           <InputField 
             placeholder = "Say Something..."
             {...register("message",{
+              value: messageBody,
               required: true,
               maxLength:1000,
               onChange: (e)=>{setMessageBody(e.target.value)}

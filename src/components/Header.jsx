@@ -3,7 +3,7 @@ import AppContainer from './AppContainer'
 import { LogOut } from 'react-feather'
 import { Link } from 'react-router-dom'
 
-const Header = ({username}) => {
+const Header = ({username="Anonymous User"}) => {
   return (
     <>
       <AppContainer>

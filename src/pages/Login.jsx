@@ -5,7 +5,7 @@ import { Link,useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import authService from '../appwrite/authentication'
 import { useDispatch } from 'react-redux'
-import authSlice, { loginState } from '../store/authSlice'
+import authSlice ,{loginState } from '../store/authSlice'
 
 const Login = () => {
 
@@ -32,6 +32,7 @@ const Login = () => {
   }
 
   useEffect(()=>{
+    console.log(authSlice.state);
     if(authSlice.state){
       navigate('/')
     }
